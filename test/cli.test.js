@@ -132,11 +132,11 @@ test('__filename & __dirname are defined', async () => {
 })
 
 test('markdown scripts are working', async () => {
-  await $`node build/cli.js docs/markdown.md`
+  await $`node build/cli.js test/fixtures/markdown.md`
 })
 
 test('markdown scripts are working', async () => {
-  await $`node build/cli.js docs/markdown.md`
+  await $`node build/cli.js test/fixtures/markdown.md`
 })
 
 test('exceptions are caught', async () => {
@@ -191,8 +191,10 @@ test('argv works with zx and node', async () => {
     `global {"_":["bar"]}\nimported {"_":["bar"]}\n`
   )
   assert.is(
-    (await $`node build/cli.js --eval 'console.log(argv._)' baz`).toString(),
-    `[ 'baz' ]\n`
+    (
+      await $`node build/cli.js --eval 'console.log(argv._.join(''))' baz`
+    ).toString(),
+    `baz\n`
   )
 })
 
